@@ -38,6 +38,7 @@
       "id": "wsj_news",
       "name": "Wall Street Journal (news desk)",
       "rating_note": "Center on news pages specifically (AllSides) -- opinion section excluded",
+      "paywalled": true,
       "verified": "assumed",
       "feeds": {
         "world": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
@@ -48,6 +49,7 @@
       "id": "ft_news",
       "name": "Financial Times (news desk)",
       "rating_note": "Center on news pages (AllSides); strong factuality",
+      "paywalled": true,
       "verified": "assumed",
       "feeds": {
         "world": "https://www.ft.com/rss/home",

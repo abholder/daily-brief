@@ -67,6 +67,7 @@ def fetch_outlet_articles(outlet, cutoff_utc):
                     "summary": _clean_summary(entry.get("summary", "")),
                     "outlet": outlet["name"],
                     "rating_note": outlet["rating_note"],
+                    "paywalled": outlet.get("paywalled", False),
                     "beat": beat,
                     "published": published,
                 })
@@ -178,6 +179,7 @@ def render_page(articles, statuses, manual_links, generated_at_local, lookback_h
   .card h2 a:hover {{ text-decoration: underline; }}
   .summary {{ margin: 6px 0; font-size: 0.95rem; opacity: 0.9; }}
   .rating {{ font-size: 0.8rem; opacity: 0.65; }}
+  .paywall {{ font-size: 0.7rem; opacity: 0.6; font-weight: normal; white-space: nowrap; }}
   .outlet {{ font-weight: 600; }}
   .beat-tag {{ text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; opacity: 0.6; }}
   .manual-links {{ margin-top: 40px; padding-top: 16px; border-top: 2px solid currentColor; }}
@@ -208,9 +210,10 @@ def render_page(articles, statuses, manual_links, generated_at_local, lookback_h
 
 def _article_card(a):
     published_local = a["published"].astimezone(LOCAL_TZ).strftime("%-I:%M %p")
+    paywall_note = ' <span class="paywall">&#128274; may require subscription</span>' if a.get("paywalled") else ""
     return f'''<article class="card">
   <div class="beat-tag">{a["beat"]}</div>
-  <h2><a href="{a["link"]}" target="_blank" rel="noopener">{_escape(a["title"])}</a></h2>
+  <h2><a href="{a["link"]}" target="_blank" rel="noopener">{_escape(a["title"])}</a>{paywall_note}</h2>
   <p class="summary">{_escape(a["summary"])}</p>
   <p class="rating"><span class="outlet">{_escape(a["outlet"])}</span> &middot; {published_local}
   &middot; {_escape(a["rating_note"])}</p>
