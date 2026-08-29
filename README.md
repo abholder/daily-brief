@@ -38,13 +38,17 @@ or check the "Informed" Claude project).
 
 ## How the schedule works
 
-The workflow fires every hour, but the script only does real work at ~6am and
-~6pm **Central time**; every other hour it's a no-op. This is deliberate: GitHub's
-scheduler only understands UTC, and Central shifts between UTC-5 and UTC-6 with
-Daylight Saving Time, so a schedule hard-coded in UTC would silently drift an
-hour off "6am Central" twice a year. Checking the actual local hour inside the
-script keeps it correct automatically. Adjust the target hours in
-`config/settings.json` (`refresh_hours_local`) if you ever want a different time.
+The workflow runs at ~6am and ~6pm **Central time**, using GitHub Actions'
+native `timezone:` field on the cron schedule (see `.github/workflows/publish.yml`).
+GitHub resolves that to the correct UTC offset itself, including across the
+Daylight Saving Time switch, so there's no separate local-time check to
+maintain. Adjust the times by editing the `cron:` line directly (it's
+`"0 6,18 * * *"` -- hour(s), in `timezone:`, that the job should run).
+
+One thing worth knowing either way: GitHub's scheduled triggers are best-effort
+on shared infrastructure -- during busy periods an actual run can start some
+minutes to a couple hours after its scheduled time. Not something to design
+around for a personal project like this, just don't expect second-hand precision.
 
 ## Changing things later
 
@@ -87,7 +91,7 @@ No code changes needed for either.
 
 ```bash
 pip install -r requirements.txt
-python3 scripts/fetch_and_build.py --force   # --force ignores the 6am/6pm check
+python3 scripts/fetch_and_build.py            # always builds when run directly
 open docs/index.html                          # or just open the file in a browser
 ```
 

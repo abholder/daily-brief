@@ -37,16 +37,6 @@ def load_config():
     return settings, outlets
 
 
-def should_run_now(settings, force=False):
-    """DST-safe schedule check. The GitHub Action triggers this hourly; we only do
-    real work when it's actually 6am or 6pm *Central* time, whatever the UTC offset
-    currently is (Central shifts between UTC-5 and UTC-6 across the year)."""
-    if force:
-        return True
-    now_local = datetime.now(LOCAL_TZ)
-    return now_local.hour in settings["refresh_hours_local"]
-
-
 def fetch_outlet_articles(outlet, cutoff_utc):
     """Fetch every beat feed for one outlet. Returns (articles, per_feed_status)."""
     articles = []
@@ -95,12 +85,8 @@ def _clean_summary(raw_html, max_len=280):
     return text[:max_len].rsplit(" ", 1)[0] + "..." if len(text) > max_len else text
 
 
-def build(force=False):
+def build():
     settings, config = load_config()
-
-    if not should_run_now(settings, force=force):
-        print("Not a scheduled refresh hour (Central time) -- skipping. Use --force to override.")
-        return 0
 
     lookback_hours = settings["lookback_hours"]
     cutoff_utc = datetime.now(timezone.utc) - timedelta(hours=lookback_hours)
@@ -233,5 +219,4 @@ def _escape(text):
 
 
 if __name__ == "__main__":
-    force = "--force" in sys.argv
-    sys.exit(build(force=force))
+    sys.exit(build())

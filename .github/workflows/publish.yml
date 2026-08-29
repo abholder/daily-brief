@@ -2,14 +2,13 @@ name: Build and publish Daily Brief
 
 on:
   schedule:
-    # Runs every hour. The script itself checks whether it's actually 6am or 6pm
-    # Central time before doing any real work -- this is what keeps the "twice a
-    # day" schedule correct across the Daylight Saving Time switch, since GitHub's
-    # cron only understands UTC. See scripts/fetch_and_build.py: should_run_now().
-    - cron: "0 * * * *"
+    # Runs at 6am and 6pm America/Chicago. GitHub Actions resolves this to the
+    # right UTC offset itself, including across the Daylight Saving Time switch,
+    # so the script no longer needs its own hour-check gate.
+    - cron: "0 6,18 * * *"
+      timezone: "America/Chicago"
   workflow_dispatch:
     # Lets you trigger a run manually from the Actions tab, e.g. to test changes.
-    # A manual run always builds immediately, ignoring the 6am/6pm check.
 
 permissions:
   contents: write
@@ -32,12 +31,7 @@ jobs:
         run: pip install feedparser
 
       - name: Build page
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            python scripts/fetch_and_build.py --force
-          else
-            python scripts/fetch_and_build.py
-          fi
+        run: python scripts/fetch_and_build.py
 
       - name: Commit and push if changed
         run: |
