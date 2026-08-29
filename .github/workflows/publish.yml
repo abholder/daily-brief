@@ -1,0 +1,52 @@
+name: Build and publish Daily Brief
+
+on:
+  schedule:
+    # Runs every hour. The script itself checks whether it's actually 6am or 6pm
+    # Central time before doing any real work -- this is what keeps the "twice a
+    # day" schedule correct across the Daylight Saving Time switch, since GitHub's
+    # cron only understands UTC. See scripts/fetch_and_build.py: should_run_now().
+    - cron: "0 * * * *"
+  workflow_dispatch:
+    # Lets you trigger a run manually from the Actions tab, e.g. to test changes.
+    # A manual run always builds immediately, ignoring the 6am/6pm check.
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install feedparser
+
+      - name: Build page
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python scripts/fetch_and_build.py --force
+          else
+            python scripts/fetch_and_build.py
+          fi
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Publish edition: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi

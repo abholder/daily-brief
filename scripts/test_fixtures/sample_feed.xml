@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Sample Feed (test fixture)</title>
+  <link>https://example.com</link>
+  <description>Local fixture used to test pipeline logic without live network access.</description>
+  <item>
+    <title>Fed Chair Warsh not ruling out interest rate hike amid inflation concerns</title>
+    <link>https://example.com/fed-warsh-rate-hike</link>
+    <description>&lt;p&gt;Federal Reserve Chair Kevin Warsh said Friday the central bank has not ruled out raising interest rates if inflation data continues to run hot.&lt;/p&gt;</description>
+    <pubDate>Sat, 29 Aug 2026 12:55:34 +0000</pubDate>
+  </item>
+  <item>
+    <title>NASA is preparing to launch the Nancy Grace Roman Space Telescope. Here's what to know</title>
+    <link>https://example.com/roman-telescope-launch</link>
+    <description>&lt;p&gt;The long-delayed observatory is set to expand humanity's view of the cosmos.&lt;/p&gt;</description>
+    <pubDate>Sat, 29 Aug 2026 04:55:34 +0000</pubDate>
+  </item>
+  <item>
+    <title>This article is too old and should be filtered out by the lookback window</title>
+    <link>https://example.com/old-article</link>
+    <description>If this shows up in the rendered page, the lookback filter is broken.</description>
+    <pubDate>Thu, 27 Aug 2026 14:55:34 +0000</pubDate>
+  </item>
+</channel>
+</rss>

@@ -1,0 +1,136 @@
+{
+  "_comment": "Each outlet: rating_note documents which watchdogs rated it Center/least-biased and High/Very-High factuality (see the project proposal for full sourcing/links). feeds maps beat -> RSS URL. verified: 'live' means this session fetched it directly and got real, current articles. 'assumed' means the URL is well-documented publicly but could not be reached from this session's sandboxed network (blocked by the target site's bot protection, not a sign the feed is dead) -- confirm on the first real GitHub Action run and fix here if a URL has moved.",
+  "outlets": [
+    {
+      "id": "bbc",
+      "name": "BBC News",
+      "rating_note": "Center (AllSides, Ad Fontes); publicly funded, not ad-driven",
+      "verified": "assumed",
+      "feeds": {
+        "world": "https://feeds.bbci.co.uk/news/world/rss.xml",
+        "politics": "https://feeds.bbci.co.uk/news/politics/rss.xml",
+        "economy": "https://feeds.bbci.co.uk/news/business/rss.xml",
+        "science": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml"
+      }
+    },
+    {
+      "id": "pbs_newshour",
+      "name": "PBS NewsHour",
+      "rating_note": "Center (AllSides, Ad Fontes); publicly funded",
+      "verified": "live",
+      "feeds": {
+        "world": "https://www.pbs.org/newshour/feeds/rss/world",
+        "politics": "https://www.pbs.org/newshour/feeds/rss/politics",
+        "economy": "https://www.pbs.org/newshour/feeds/rss/economy",
+        "science": "https://www.pbs.org/newshour/feeds/rss/science"
+      }
+    },
+    {
+      "id": "dw",
+      "name": "Deutsche Welle",
+      "rating_note": "Least Biased / Center (MBFC); publicly funded, international desk",
+      "verified": "assumed",
+      "feeds": {
+        "world": "https://rss.dw.com/xml/rss-en-all"
+      }
+    },
+    {
+      "id": "wsj_news",
+      "name": "Wall Street Journal (news desk)",
+      "rating_note": "Center on news pages specifically (AllSides) -- opinion section excluded",
+      "verified": "assumed",
+      "feeds": {
+        "world": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
+        "economy": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+      }
+    },
+    {
+      "id": "ft_news",
+      "name": "Financial Times (news desk)",
+      "rating_note": "Center on news pages (AllSides); strong factuality",
+      "verified": "assumed",
+      "feeds": {
+        "world": "https://www.ft.com/rss/home",
+        "economy": "https://www.ft.com/companies?format=rss"
+      }
+    },
+    {
+      "id": "axios",
+      "name": "Axios",
+      "rating_note": "Center / Balance-Certified",
+      "verified": "assumed",
+      "feeds": {
+        "world": "https://api.axios.com/feed/",
+        "politics": "https://www.axios.com/politics-policy/feed"
+      }
+    },
+    {
+      "id": "the_hill",
+      "name": "The Hill",
+      "rating_note": "Center / Balance-Certified",
+      "verified": "live",
+      "feeds": {
+        "politics": "https://thehill.com/homenews/feed/",
+        "economy": "https://thehill.com/business/feed/"
+      }
+    },
+    {
+      "id": "csm",
+      "name": "Christian Science Monitor",
+      "rating_note": "Center at AllSides' highest confidence tier; Least Biased / High factual (MBFC). Funded by the Church of Christ, Scientist, which does not set editorial content on general news.",
+      "verified": "assumed",
+      "feeds": {
+        "world": "https://rss.csmonitor.com/feeds/world",
+        "politics": "https://rss.csmonitor.com/feeds/politics",
+        "economy": "https://rss.csmonitor.com/feeds/business"
+      }
+    },
+    {
+      "id": "newsnation",
+      "name": "NewsNation",
+      "rating_note": "AllSides Balance Certified",
+      "verified": "live",
+      "feeds": {
+        "general": "https://www.newsnationnow.com/feed/"
+      }
+    },
+    {
+      "id": "economist",
+      "name": "The Economist",
+      "rating_note": "Least Biased (MBFC); near-center, good reliability (Ad Fontes: -3.09 bias / 41.41 reliability). AllSides alone rates it Lean Left at their lowest ('Medium') confidence tier. House style is unsigned analytical writing, not wire-style straight reporting.",
+      "verified": "assumed",
+      "feeds": {
+        "economy": "https://www.economist.com/finance-and-economics/rss.xml",
+        "world": "https://www.economist.com/the-world-this-week/rss.xml"
+      }
+    }
+  ],
+  "manual_links": [
+    {
+      "name": "Reuters",
+      "reason": "No free public RSS (discontinued industry-wide years ago) -- check directly instead of automated pull.",
+      "links": {
+        "World": "https://www.reuters.com/world/",
+        "Business": "https://www.reuters.com/business/",
+        "Technology": "https://www.reuters.com/technology/"
+      }
+    },
+    {
+      "name": "Associated Press (AP)",
+      "reason": "No official public RSS -- check directly instead of automated pull. Also the industry's authoritative source for down-ballot election results (AP Race Call).",
+      "links": {
+        "Politics": "https://apnews.com/hub/politics",
+        "World": "https://apnews.com/hub/world-news",
+        "Business": "https://apnews.com/hub/business",
+        "Science": "https://apnews.com/hub/science"
+      }
+    },
+    {
+      "name": "AFP",
+      "reason": "No genuine public news-wire RSS found (only a corporate press-release feed) -- check directly instead of automated pull.",
+      "links": {
+        "Home": "https://www.afp.com/en"
+      }
+    }
+  ]
+}

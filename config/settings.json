@@ -1,0 +1,10 @@
+{
+  "_comment": "Central config for the daily-brief pipeline. Change values here, not in the script.",
+  "lookback_hours": 24,
+  "timezone": "America/Chicago",
+  "refresh_hours_local": [6, 18],
+  "beats": ["world", "politics", "economy", "science"],
+  "excluded_beats": ["sports", "entertainment", "lifestyle"],
+  "grouping": "none",
+  "sort_order": "reverse-chronological"
+}
